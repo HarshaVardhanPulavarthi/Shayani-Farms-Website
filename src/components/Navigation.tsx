@@ -1,122 +1,110 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem 2rem;
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  align-items: center;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-`;
-
-const Logo = styled.button`
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
-  font-family: 'Playfair Display', serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-`;
-
-const NavLinks = styled.div`
+  z-index: 100;
+  padding: 1rem 2rem;
   display: flex;
-  gap: 4rem;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
-const NavItem = styled.button`
-  color: #fff;
+const Logo = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+`;
+
+const NavLinks = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    display: ${props => props.isOpen ? 'flex' : 'none'};
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+`;
+
+const NavLink = styled.a`
+  color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.3rem;
-  position: relative;
-  padding: 0.5rem 0;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
-  background: none;
-  border: none;
+  transition: color 0.3s ease;
   cursor: pointer;
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #fff;
-    transition: width 0.3s ease;
+  &:hover {
+    color: #4CAF50;
   }
 
-  &:hover {
-    opacity: 1;
-    &::after {
-      width: 100%;
-    }
+  @media (max-width: 768px) {
+    padding: 0.5rem 0;
+    width: 100%;
+    text-align: center;
+  }
+`;
+
+const HamburgerButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+
+  @media (max-width: 768px) {
+    display: block;
   }
 `;
 
 const Navigation = () => {
-  const handleNavClick = (id: string) => {
-    if (id === 'home') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    } else {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
-  const navItems = [
-    { title: 'Home', id: 'home' },
-    { title: 'Our Story', id: 'our-story' },
-    { title: 'Our Products', id: 'products' },
-    { title: 'Order Now', id: 'order' }
-  ];
-
   return (
-    <Nav>
-      <Logo onClick={() => handleNavClick('home')}>
-        <motion.span
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Shayani Farms
-        </motion.span>
-      </Logo>
-      <NavLinks>
-        {navItems.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <NavItem onClick={() => handleNavClick(item.id)}>
-              {item.title}
-            </NavItem>
-          </motion.div>
-        ))}
+    <Nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Logo>Shayani Farms</Logo>
+      <HamburgerButton onClick={toggleMenu}>
+        {isOpen ? '✕' : '☰'}
+      </HamburgerButton>
+      <NavLinks isOpen={isOpen}>
+        <NavLink href="#story">Our Story</NavLink>
+        <NavLink href="#products">Products</NavLink>
+        <NavLink href="#order">Order Now</NavLink>
+        <NavLink href="#contact">Contact</NavLink>
       </NavLinks>
-      <NavItem onClick={() => handleNavClick('contact')}>
-        Contact
-      </NavItem>
     </Nav>
   );
 };

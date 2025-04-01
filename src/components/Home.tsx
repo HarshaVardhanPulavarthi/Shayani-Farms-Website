@@ -26,41 +26,41 @@ const CursorGlow = styled(motion.div)`
 
 const HeroSection = styled.div`
   height: 100vh;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem;
   position: relative;
-  background-image: url('/mango-farm.jpg');
-  background-size: cover;
-  background-position: center 65%;
-  background-attachment: fixed;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.2)
-    );
-    z-index: 1;
-  }
+  overflow: hidden;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle at center,
-      transparent 0%,
-      rgba(0, 0, 0, 0.3) 100%
-    );
-    z-index: 1;
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    height: 90vh;
+  }
+`;
+
+const HeroTitle = styled(motion.h1)`
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+`;
+
+const HeroSubtitle = styled(motion.p)`
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 2rem;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -181,71 +181,35 @@ const ScrollIndicator = styled(motion.div)`
   }
 `;
 
-const VideoSectionWrapper = styled(motion.div)`
+const VideoSection = styled.div`
   min-height: 100vh;
-  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 4rem 2rem;
   position: relative;
-  z-index: 2;
-  padding: 6rem 2rem;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.95),
-    rgba(0, 0, 0, 0.85)
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    min-height: 80vh;
   }
 `;
 
 const VideoContainer = styled(motion.div)`
-  width: 95%;
-  max-width: 1800px;
+  width: 100%;
+  max-width: 1200px;
   aspect-ratio: 16/9;
   position: relative;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(0, 100, 0, 0.2);
   border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      45deg,
-      rgba(255,255,255,0.1) 0%,
-      rgba(255,255,255,0) 100%
-    );
-    border-radius: 20px;
-    z-index: 1;
-  }
-
-  iframe {
-    border-radius: 20px;
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.03);
-    }
+  @media (max-width: 768px) {
+    max-width: 100%;
   }
 `;
 
@@ -300,140 +264,78 @@ const StoryTitle = styled.h2`
   }
 `;
 
-const TimelineContainer = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
+const TimelineSection = styled.div`
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
   position: relative;
-  z-index: 2;
-  padding: 0 2rem;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: calc(100% - 100px);
-    background: rgba(255, 255, 255, 0.4);
-    top: 50px;
-    border-radius: 3px;
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
+`;
+
+const TimelineGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
 const TimelineBox = styled(motion.div)`
-  width: 500px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 3rem;
-  margin: 6rem 0;
-  position: relative;
-  color: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  
-  &:nth-of-type(odd) {
-    margin-right: auto;
-    margin-left: 8rem;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      right: -100px;
-      top: 50%;
-      width: 100px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.4);
-      transform: translateY(-50%);
-    }
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
-    &::after {
-      content: '';
-      position: absolute;
-      right: -103px;
-      top: 50%;
-      width: 16px;
-      height: 16px;
-      background: white;
-      border: 4px solid #2d5a3f;
-      border-radius: 50%;
-      transform: translateY(-50%);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-  }
-  
-  &:nth-of-type(even) {
-    margin-left: auto;
-    margin-right: 8rem;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      left: -100px;
-      top: 50%;
-      width: 100px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.4);
-      transform: translateY(-50%);
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: -103px;
-      top: 50%;
-      width: 16px;
-      height: 16px;
-      background: white;
-      border: 4px solid #2d5a3f;
-      border-radius: 50%;
-      transform: translateY(-50%);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  &::before {
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border: 4px solid #2d5a3f;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
+  @media (max-width: 768px) {
+    padding: 1.5rem;
   }
 `;
 
 const TimelineImage = styled.div`
   width: 100%;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  margin-bottom: 2rem;
+  height: 200px;
+  border-radius: 10px;
   overflow: hidden;
-  
+  margin-bottom: 1rem;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
+  @media (max-width: 768px) {
+    height: 150px;
+  }
 `;
 
 const TimelineTitle = styled.h3`
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-  font-family: 'Playfair Display', serif;
-  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const TimelineContent = styled.p`
-  font-size: 1.3rem;
-  line-height: 1.6;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ContactSection = styled.div`
@@ -694,18 +596,34 @@ const ProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 1600px;
+  padding: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
 `;
 
-const ProductCard = styled.div`
+const ProductCard = styled(motion.div)`
   position: relative;
-  height: 400px;
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
+  height: 400px;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
 `;
 
 const ProductImage = styled.img`
@@ -715,57 +633,49 @@ const ProductImage = styled.img`
   transition: transform 0.5s ease;
 `;
 
-const ProductName = styled.h3`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  margin: 0;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  z-index: 2;
-`;
-
 const ProductInfo = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
-  padding: 2rem;
-  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1.5rem;
   transform: translateY(100%);
   transition: transform 0.5s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  z-index: 1;
+  color: white;
 
-  h4 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #90EE90;
+  @media (max-width: 768px) {
+    padding: 1rem;
   }
+`;
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 0;
+const ProductName = styled.h3`
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+`;
+
+const ProductDescription = styled.p`
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
   }
 `;
 
 const ProductPrice = styled.div`
-  margin-top: 1rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #90EE90;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4CAF50;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const Home = () => {
@@ -946,7 +856,7 @@ const Home = () => {
           <div className="arrow" />
         </ScrollIndicator>
       </HeroSection>
-      <VideoSectionWrapper>
+      <VideoSection>
         <VideoContainer
           style={{ 
             opacity: videoOpacity,
@@ -967,26 +877,28 @@ const Home = () => {
             allowFullScreen
           />
         </VideoContainer>
-      </VideoSectionWrapper>
+      </VideoSection>
       <StorySection ref={storyRef} id="our-story">
         <StoryTitle>Our Journey</StoryTitle>
-        <TimelineContainer>
-          {timelineItems.map((item, index) => (
-            <TimelineBox
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-            >
-              <TimelineImage>
-                <img src={item.image} alt={item.title} />
-              </TimelineImage>
-              <TimelineTitle>{item.title}</TimelineTitle>
-              <TimelineContent>{item.content}</TimelineContent>
-            </TimelineBox>
-          ))}
-        </TimelineContainer>
+        <TimelineSection>
+          <TimelineGrid>
+            {timelineItems.map((item, index) => (
+              <TimelineBox
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+              >
+                <TimelineImage>
+                  <img src={item.image} alt={item.title} />
+                </TimelineImage>
+                <TimelineTitle>{item.title}</TimelineTitle>
+                <TimelineContent>{item.content}</TimelineContent>
+              </TimelineBox>
+            ))}
+          </TimelineGrid>
+        </TimelineSection>
       </StorySection>
       <ProductsSection ref={productsRef} id="products">
         <ProductsTitle>Our Products</ProductsTitle>
@@ -1012,10 +924,9 @@ const Home = () => {
               }}
             >
               <ProductImage src={product.image} alt={product.name} />
-              <ProductName>{product.name}</ProductName>
               <ProductInfo>
-                <h4>{product.name}</h4>
-                <p>{product.description}</p>
+                <ProductName>{product.name}</ProductName>
+                <ProductDescription>{product.description}</ProductDescription>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductInfo>
             </ProductCard>
