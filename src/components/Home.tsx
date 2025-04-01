@@ -41,29 +41,6 @@ const HeroSection = styled.div`
   }
 `;
 
-const HeroTitle = styled(motion.h1)`
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
-const HeroSubtitle = styled(motion.p)`
-  font-size: 1.5rem;
-  color: white;
-  margin-bottom: 2rem;
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-`;
-
 const BlurredBackground = styled(motion.div)`
   position: fixed;
   top: 0;
