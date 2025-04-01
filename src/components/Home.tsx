@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ShootingStar from './ShootingStar';
+import ScrollProgress from './ScrollProgress';
 
 const HomeContainer = styled.div`
   min-height: 300vh;
@@ -683,6 +685,107 @@ const OrderButton = styled.a`
   }
 `;
 
+const ProductsSection = styled.section`
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #000000, #0a1f12);
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 2;
+`;
+
+const ProductsTitle = styled.h2`
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  margin-bottom: 4rem;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 
+    2px 2px 0 rgba(0, 0, 0, 0.5),
+    -2px -2px 0 rgba(0, 0, 0, 0.5),
+    2px -2px 0 rgba(0, 0, 0, 0.5),
+    -2px 2px 0 rgba(0, 0, 0, 0.5);
+`;
+
+const ProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+`;
+
+const ProductCard = styled.div`
+  position: relative;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+`;
+
+const ProductImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+`;
+
+const ProductName = styled.h3`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  z-index: 2;
+`;
+
+const ProductInfo = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 2rem;
+  color: white;
+  transform: translateY(100%);
+  transition: transform 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+
+  h4 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #90EE90;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+`;
+
+const ProductPrice = styled.div`
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #90EE90;
+`;
+
 const Home = () => {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -696,6 +799,7 @@ const Home = () => {
   const storyRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const orderRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -715,12 +819,36 @@ const Home = () => {
   };
 
   const timelineItems = [
-    { title: "Our Beginnings", content: "The story of Shayani Farms began with a dream and a small plot of land." },
-    { title: "First Harvest", content: "Our first successful mango harvest marked the beginning of something special." },
-    { title: "Growing Together", content: "As our orchards grew, so did our family of dedicated farmers." },
-    { title: "Sustainable Practices", content: "We implemented eco-friendly farming methods to protect our environment." },
-    { title: "Community Impact", content: "Creating jobs and supporting local communities became our mission." },
-    { title: "Looking Forward", content: "Continuing our journey of growth while maintaining our commitment to quality." }
+    { 
+      title: "Our Beginnings", 
+      content: "The story of Shayani Farms began with a dream and a small plot of land.",
+      image: "/Our_Beginnings.jpg"
+    },
+    { 
+      title: "First Harvest", 
+      content: "Our first successful mango harvest marked the beginning of something special.",
+      image: "/First_Harvest.jpg"
+    },
+    { 
+      title: "Growing Together", 
+      content: "As our orchards grew, so did our family of dedicated farmers.",
+      image: "/Growing_Together.jpg"
+    },
+    { 
+      title: "Sustainable Practices", 
+      content: "We implemented eco-friendly farming methods to protect our environment.",
+      image: "/Sustainable_Practices.jpg"
+    },
+    { 
+      title: "Community Impact", 
+      content: "Creating jobs and supporting local communities became our mission.",
+      image: "/Community_Impact.jpg"
+    },
+    { 
+      title: "Looking Forward", 
+      content: "Continuing our journey of growth while maintaining our commitment to quality.",
+      image: "/Looking_forward.jpg"
+    }
   ];
 
   const scrollToStory = () => {
@@ -735,8 +863,76 @@ const Home = () => {
     orderRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const products = [
+    {
+      id: 1,
+      name: "Methamba",
+      image: "/methamba.jpg",
+      description: "Authentic Maharastrian relish made with Raw Mangoes and Spices. Raw Mangoes and Fenugreek seeds have a large variety of health benefits while making the pickle, mouth watering.",
+      price: "220 per 250g"
+    },
+    {
+      id: 2,
+      name: "Avakaya Classic",
+      image: "/methamba.jpg",
+      description: "Traditional Godavari style mango pickle with authentic spices and perfect blend of flavors.",
+      price: "200 per 250g"
+    },
+    {
+      id: 3,
+      name: "Bellam Avakaya",
+      image: "/methamba.jpg",
+      description: "Sweet and spicy variation of Avakaya made with jaggery, perfect for those who prefer a balanced taste.",
+      price: "200 per 250g"
+    },
+    {
+      id: 4,
+      name: "Tamil Nati Style Sambar Powder",
+      image: "/methamba.jpg",
+      description: "Authentic sambar powder made by our farm help, with traditional recipe and finest ingredients.",
+      price: "99 per 100g"
+    },
+    {
+      id: 5,
+      name: "Mango Chutney",
+      image: "/methamba.jpg",
+      description: "Sweet and tangy chutney made from ripe mangoes, perfect as a condiment.",
+      price: "180 per 250g"
+    },
+    {
+      id: 6,
+      name: "Mango Jam",
+      image: "/methamba.jpg",
+      description: "Pure mango jam without any artificial preservatives, made from our farm-fresh mangoes.",
+      price: "200 per 250g"
+    },
+    {
+      id: 7,
+      name: "Mango Pickle",
+      image: "/methamba.jpg",
+      description: "Traditional mango pickle with perfect blend of spices and oil.",
+      price: "180 per 250g"
+    },
+    {
+      id: 8,
+      name: "Mango Salsa",
+      image: "/methamba.jpg",
+      description: "Fresh and zesty mango salsa perfect for chips and tacos.",
+      price: "160 per 250g"
+    },
+    {
+      id: 9,
+      name: "Mango Ice Cream",
+      image: "/methamba.jpg",
+      description: "Creamy mango ice cream made with real mango pulp and fresh cream.",
+      price: "250 per 500g"
+    }
+  ];
+
   return (
     <HomeContainer>
+      <ShootingStar />
+      <ScrollProgress />
       <CursorGlow
         animate={{
           x: mousePosition.x,
@@ -813,13 +1009,49 @@ const Home = () => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
             >
-              <TimelineImage />
+              <TimelineImage>
+                <img src={item.image} alt={item.title} />
+              </TimelineImage>
               <TimelineTitle>{item.title}</TimelineTitle>
               <TimelineContent>{item.content}</TimelineContent>
             </TimelineBox>
           ))}
         </TimelineContainer>
       </StorySection>
+      <ProductsSection ref={productsRef} id="products">
+        <ProductsTitle>Our Products</ProductsTitle>
+        <ProductsGrid>
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              onMouseEnter={(e) => {
+                const info = e.currentTarget.querySelector('div:last-child') as HTMLElement;
+                const image = e.currentTarget.querySelector('img') as HTMLElement;
+                if (info && image) {
+                  info.style.transform = 'translateY(0)';
+                  image.style.transform = 'translateY(100%)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                const info = e.currentTarget.querySelector('div:last-child') as HTMLElement;
+                const image = e.currentTarget.querySelector('img') as HTMLElement;
+                if (info && image) {
+                  info.style.transform = 'translateY(100%)';
+                  image.style.transform = 'translateY(0)';
+                }
+              }}
+            >
+              <ProductImage src={product.image} alt={product.name} />
+              <ProductName>{product.name}</ProductName>
+              <ProductInfo>
+                <h4>{product.name}</h4>
+                <p>{product.description}</p>
+                <ProductPrice>{product.price}</ProductPrice>
+              </ProductInfo>
+            </ProductCard>
+          ))}
+        </ProductsGrid>
+      </ProductsSection>
       <OrderSection ref={orderRef} id="order">
         <OrderTitle>Place Your Order</OrderTitle>
         <OrderFormContainer>
