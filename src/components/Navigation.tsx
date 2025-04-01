@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Nav = styled.nav`
@@ -65,23 +64,6 @@ const NavItem = styled.button`
     &::after {
       width: 100%;
     }
-  }
-`;
-
-const ContactButton = styled(Link)`
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
-  border: 2px solid white;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  justify-self: end;
-
-  &:hover {
-    background: white;
-    color: black;
   }
 `;
 

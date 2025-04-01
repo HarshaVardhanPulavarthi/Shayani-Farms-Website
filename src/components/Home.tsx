@@ -24,24 +24,6 @@ const CursorGlow = styled(motion.div)`
   filter: blur(2px);
 `;
 
-const AnimatedBackground = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(0, 100, 0, 0.4),
-    rgba(34, 139, 34, 0.5),
-    rgba(0, 128, 0, 0.4)
-  );
-  filter: blur(80px);
-  z-index: 2;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-`;
-
 const HeroSection = styled.div`
   height: 100vh;
   width: 100vw;
@@ -850,18 +832,6 @@ const Home = () => {
       image: "/Looking_forward.jpg"
     }
   ];
-
-  const scrollToStory = () => {
-    storyRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToContact = () => {
-    contactRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToOrder = () => {
-    orderRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   const products = [
     {
